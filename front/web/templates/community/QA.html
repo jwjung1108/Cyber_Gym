@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Q&A 답변
+{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor-viewer.min.css" />
+<link rel="stylesheet" href="{{ url_for('static', filename='css/answermodal.css') }}">
+<div class="qna-table">
+
+    <!-- 질문 및 답변 -->
+    <div id="qanda">
+        <!-- 질문 -->
+        <div class="question">
+            <div class="question-header">
+                <div class="question-title">
+                    <h1>{{data[0].title}}</h1>
+                </div>
+                <div class="right">
+                    <div class="question-author">
+                        <h3>작성자: {{data[1]}}</h3>
+                    </div>
+                    <div class="question-date">
+                        <p>{{data[0].create_date}}</p>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="question-content">
+                <div id="viewer-content"></div>
+            </div>
+        </div>
+
+        {% if isAuthor %}
+        <div class="drbtn">
+            <form id="deleteForm" action="/board/delete-post" method="POST">
+                <input type="hidden" id="postId" name="postId" value="{{ number }}">
+                <button type="button" class="block_btn" onclick="confirmDelete()">글 삭제</button>
+            </form>
+            <form id="reForm" action="/board/re-post" method="POST">
+                <input type="hidden" id="postId" name="postId" value="{{ number }}">
+                <button class="block_btn">글 수정</button>
+            </form>
+        </div>
+        {% endif %}
+
+        <hr>
+        <!-- 관리자의 답변 -->
+        <div class="answer">
+            <h3>답변</h3>
+            <div>
+                {% for item in comment %}
+                <div class="answer-item">
+                    <div class="answer-name">{{item[1]}}</div>
+                    <div>
+                        {{item[0].content}}
+                    </div>
+                    {% if session.get('username') == item[1] %}
+                    <button class="red_btn" onclick="deleteAnswer('{{ loop.index }}')">댓글 삭제</button>
+                    {% endif %}
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- 답변 버튼 -->
+        <div class="answer-btn">
+            <button class="red_btn" onclick="openModal()">답변 작성</button>
+        </div>
+    </div>
+
+</div>
+
+<!-- 모달 창 -->
+<div id="myModal" class="answermodal" style="display:none;">
+    <div class="answermodal-content">
+        <div>
+            <span class="answerclose-modal" onclick="closeModal()">&times;</span>
+        </div>
+        <h2>답변 작성</h2>
+        <textarea id="answer-textarea" rows="10" cols="50" placeholder="답변을 입력하세요..."></textarea>
+        <div>
+            <button class="red_btn" onclick="submitAnswer()">작성 완료</button>
+        </div>
+    </div>
+</div>
+
+<script src="https://uicdn.toast.com/editor/latest/toastui-editor-viewer.min.js"></script>
+<script src="{{url_for('static', filename='js/comment.js')}}"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const viewer = new toastui.Editor({
+            el: document.querySelector('#viewer-content'),
+            viewer: true,
+            initialValue: `{{ data[0].content | replace('\n', '\\n') | safe }}`
+        });
+    });
+</script>
+
+{% endblock %}

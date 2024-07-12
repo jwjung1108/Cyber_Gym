@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Cyber Range{% endblock %}</title>
+    <!-- import tailwind css -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/header.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+    
+    <style>
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-family: 'Comfortaa', sans-serif;
+            --font-sans: 'Comfortaa';
+        }
+
+        body {
+            font-family: 'Gabarito', sans-serif;
+            --font-sans: 'Gabarito';
+        }
+    </style>
+</head>
+
+<body class="base-body">
+   
+    <div class="base-div">
+        {% include("_nav.html") %}
+
+        <div class="modal" id="modal" style="display: none;">
+            <div class="modal-content">
+
+                <button class="close-modal" id="close-modal">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                        style="width: 20px; height: 20px;">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+
+                <div class="form signin">
+                    <div class="form-header">
+                        <div class="show-signin">Sign In</div>
+                        <div class="show-signup">Sign Up</div>
+                    </div>
+                    <div class="arrow"></div>
+                    <div id="validation-message" style="color: red;"></div>
+                    <form id="form" action="/login" method="POST">
+                        <div class="form-elements">
+                            <div class="form-element">
+                                <input type="text" id="username"name="id" placeholder="Username">
+                            </div>
+                            <div class="form-element">
+                                <input type="password" id="password" name="pw" placeholder="Password">
+                            </div>
+                            <div class="form-element" style="display:none">
+                                <input type="password" id="confirm" name="cpw" placeholder="Confirm password">
+                            </div>
+                            <div class="form-element" style="display:none">
+                                <input type="eamil" id="email" name="email" placeholder="Email">
+                            </div>
+                            <div class="form-element" style="display:none">
+                                <input type="text" id="nick" name="nick" placeholder="nickName">
+                            </div>
+                            <div class="form-element">
+                                <button type="submit" id="submit-btn">Sign In</button>
+                            </div>
+                        </div>
+                    </form>
+                   
+                </div>
+            </div>
+        </div>
+
+        <main class="content">
+            {% block content %}
+            {% endblock %}
+        </main>
+        {% include("_footer.html") %}
+    </div>
+    
+    {%with messages = get_flashed_messages()%}
+    {%if messages %}
+      <script type="text/javascript">
+        alert("{{messages[-1]}}");
+      </script>
+      {%endif%}
+    {%endwith%}
+</body>
+
+
+<script src="{{ url_for('static',filename='js/login.js')}}"></script>
+</html>

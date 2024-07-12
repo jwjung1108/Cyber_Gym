@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{{ question.title }}
+{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor-viewer.min.css" />
+
+<div class="question-view">
+    <h1>{{ question.title }}</h1>
+    <div class="post-meta">
+        <span>작성자: {{ author }}</span> | <span>작성일: {{ question.create_date }}</span>
+    </div>
+    <hr>
+    <div id="viewer-content"></div>
+</div>
+
+<script src="https://uicdn.toast.com/editor/latest/toastui-editor-viewer.min.js"></script>
+<script>
+    const viewer = new toastui.Editor({
+        el: document.querySelector('#viewer-content'),
+        viewer: true,
+        initialValue: `{{ question.content | replace('\n', '\\n') | safe }}`
+    });
+</script>
+{% endblock %}

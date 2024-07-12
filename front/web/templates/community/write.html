@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{{title}}
+{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />
+<div class="question-form">
+    <h1>질문 글 작성</h1>
+    <form id="qnaForm" action="{{url}}" method="post">
+        <div class="form-group">
+            <label for="title">제목</label>
+            <input type="text" id="title" name="title" maxlength="150" autocomplete="off" value="{{tmp.title}}">
+        </div>
+        <div class="form-group">
+            <label for="numbers">문제 제목</label>
+            <input type="search" list="list" name="numbers" id="numbers" value="{{tmp.problem}}" autocomplete="off"
+                maxlength="250">
+            <datalist id="list">
+                {% for item in problem %}
+                <option value="{{item.title}}"></option>
+                {% endfor %}
+            </datalist>
+        </div>
+        <div class="form-group">
+            <label for="content">내용</label>
+            <textarea id="content" name="content" autocomplete="off" maxlength="500" style="display:none;">{{tmp.content}}</textarea>
+        </div>
+        <div id="editor"></div>
+        {% if number != "" %}
+        <input type="hidden" name="number" value="{{number}}">
+        {% endif %}
+        <button type="submit" id="sub">저장</button>
+    </form>
+</div>
+<link rel="stylesheet" href="{{url_for('static', filename='css/qnaform.css')}}">
+<script src="{{url_for('static', filename='js/qna.js')}}"></script>
+<script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
+<script>
+    // Initialize the TOAST UI Editor
+    const editor = new toastui.Editor({
+        el: document.querySelector('#editor'), // 에디터를 적용할 요소 (컨테이너)
+        height: 'auto',                        // 에디터 영역의 높이 값 (OOOpx || auto)
+        initialEditType: 'wysiwyg',            // 최초로 보여줄 에디터 타입 (markdown || wysiwyg)
+        initialValue: document.querySelector('#content').value, // 내용의 초기 값으로, 반드시 마크다운 문자열 형태여야 함
+        previewStyle: 'vertical',                // 마크다운 프리뷰 스타일 (tab || vertical)
+        hooks: {
+            addImageBlobHook: async (blob, callback) => {
+                const formData = new FormData();
+                formData.append('file', blob);
+
+                const response = await fetch('/upload_image', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const result = await response.json();
+                if (result.url) {
+                    callback(result.url, ' ');
+                } else {
+                    alert('이미지 업로드에 실패했습니다.');
+                }
+            }
+        }
+    });
+
+    // Update the textarea content with the editor content before form submission
+    document.querySelector('#qnaForm').addEventListener('submit', function (event) {
+        document.querySelector('#content').value = editor.getMarkdown();
+    });
+</script>
+
+{% endblock %}

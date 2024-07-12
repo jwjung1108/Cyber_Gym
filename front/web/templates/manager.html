@@ -1,0 +1,102 @@
+<!-- This is malware Practice Page -->
+<!-- Input content -->
+{% extends 'base.html' %}
+
+{% block title %}
+관리자 페이지
+{% endblock %}
+
+
+
+{% block content %}
+<link rel="stylesheet" href="{{url_for('static',filename='css/manager.css')}}">
+<link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />
+<div>
+    <h2 style="color:wheat">문제 출제</h2>
+</div>
+<div></div>
+<div>
+    <form id="mainform" action="/manager" method="POST" enctype="multipart/form-data">
+        <div class="form-elements">
+            <div class="form-element">
+                <select name="ptype">
+                    <option value="practice">practice</option>
+                    <option value="scenario">scenario</option>
+                </select>
+            </div>
+
+            <div class="form-element">
+                <select name="category">
+                    <option value="system">system</option>
+                    <option value="web">web</option>
+                    <option value="malware">malware</option>
+                    <option value="misc">misc</option>
+                </select>
+            </div>
+            <div class="form-element">
+                <input type="text" name="title" placeholder="제목" autocomplete="off">
+            </div>
+            <div class="form-element">
+                <label for="content">내용</label>
+                <textarea id="content" name="content" autocomplete="off" style="display:none;"> </textarea>
+            </div>
+            <div id="editor"></div>
+            <div class="form-element">
+                <input type="text" name="hint" placeholder="힌트" value="" autocomplete="off">
+            </div>
+            <div class="form-element">
+                <input type="text" name="connect" placeholder="연결정보" autocomplete="off">
+            </div>
+            <div class="form-element">
+                <input type="text" name="score" placeholder="점수" autocomplete="off">
+            </div>
+            <div class="form-element">
+                <input type="file" name="file" placeholder="파일" autocomplete="off">
+            </div>
+            <div class="form-element">
+                <input type="text" name="flag" placeholder="정답" class="flag" autocomplete="off">
+            </div>
+            <div class="form-element">
+                <button type="submit" id="submit-btn2">제출</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div>
+    <h2><a href="/manager/list">문제 리스트</a></h2>
+</div>
+<script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
+<script>
+    const editor = new toastui.Editor({
+        el: document.querySelector('#editor'), // 에디터를 적용할 요소 (컨테이너)
+        height: 'auto',                        // 에디터 영역의 높이 값 (OOOpx || auto)
+        initialEditType: 'wysiwyg',            // 최초로 보여줄 에디터 타입 (markdown || wysiwyg)
+        initialValue: document.querySelector('#content').value, // 내용의 초기 값으로, 반드시 마크다운 문자열 형태여야 함
+        previewStyle: 'vertical',                // 마크다운 프리뷰 스타일 (tab || vertical)
+        hooks: {
+            addImageBlobHook: async (blob, callback) => {
+                const formData = new FormData();
+                formData.append('file', blob);
+
+                const response = await fetch('/upload_image', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const result = await response.json();
+                if (result.url) {
+                    callback(result.url, 'alt text');
+                } else {
+                    alert('이미지 업로드에 실패했습니다.');
+                }
+            }
+        }
+    });
+
+    // Update the textarea content with the editor content before form submission
+    document.querySelector('#mainform').addEventListener('submit', function (event) {
+        document.querySelector('#content').value = editor.getMarkdown();
+    });
+</script>
+{% endblock %}

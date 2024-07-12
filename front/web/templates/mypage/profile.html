@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{{title}}
+{% endblock %}
+
+
+
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/profile.css') }}" />
+<div class="container">
+    <div class="profile-container">
+        <h2>마이페이지</h2>
+        <div class="profile-info">
+            <p><strong>사용자 이름:</strong> <span id="username">{{data.nickname}}</span></p>
+            <p><strong>이메일:</strong> <span id="email">{{data.email}}</span></p>
+            <p><strong>점수:</strong> <span id="score">{{data.t_score}}</span></p>
+            <button class="btn" onclick="showChangePassword()">비밀번호 변경</button>
+        </div>
+    </div>
+
+    <div class="change-password-container" id="changePasswordContainer" style="display:none;">
+        <h3>비밀번호 변경</h3>
+        <form id="changePasswordForm">
+            <div class="form-group">
+                <label for="currentPassword">현재 비밀번호</label>
+                <input type="password" id="currentPassword" name="currentPassword" required>
+            </div>
+            <div class="form-group">
+                <label for="newPassword">새 비밀번호</label>
+                <input type="password" id="newPassword" name="newPassword" required>
+            </div>
+            <div class="form-group">
+                <label for="confirmPassword">새 비밀번호 확인</label>
+                <input type="password" id="confirmPassword" name="confirmPassword" required>
+            </div>
+            <button type="submit">비밀번호 변경</button>
+        </form>
+    </div>
+</div>
+<script src="{{url_for('static', filename='js/profile.js')}}"></script>
+{% endblock %}

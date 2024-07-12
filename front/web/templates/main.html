@@ -1,0 +1,122 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{{ super() }} - 환영합니다
+{% endblock %}
+
+{% block content %}
+
+<section class="m0 nobg">
+    <canvas class='hacker-3d-shiz'></canvas>
+</section>
+<section class="index container nobg">
+    <div class="row">
+        <div class="col-12">
+            <h1>
+                Cyber
+                <br>
+                Range
+            </h1>
+        </div>
+        <div class="col-12">
+            <p style="font-size:18px; line-height:25px; text-align:center;">
+                시나리오 기반 실습 환경 제공<br>
+                웹, 악성코드, 클라우드 등 다양한 환경에서 발생하는 보안 위협에 대해 학습
+            </p>
+        </div>
+    </div>
+
+</section>
+
+<section class="de">
+    <h1>실전처럼 배우는 보안 시나리오</h1>
+    <p>웹, 악성코드, 클라우드 등 다양한 환경에서 발생하는 보안 위협에 대해 실습하고 학습하세요.</p>
+    <a href="#" class="cta">지금 시작하기</a>
+</section>
+
+<section class="practice">
+    <h2>Practice</h2>
+    <div class="cards">
+        <div class="card">
+            <img src="{{url_for('static',filename='images/web_security.png')}}" alt="웹 보안">
+            <h3>웹 보안</h3>
+            <p>웹 보안 위협과 대응 기술에 대해 학습하세요.</p>
+        </div>
+        <div class="card">
+            <img src="{{url_for('static',filename='images/system_security.png')}}" alt="시스템 보안">
+            <h3>시스템 보안</h3>
+            <p>시스템 보안 취약점을 이해하고 방어 방법을 배우세요.</p>
+        </div>
+        <div class="card">
+            <img src="{{url_for('static',filename='images/malware_analysis.png')}}" alt="악성코드 분석">
+            <h3>악성코드 분석</h3>
+            <p>악성코드의 동작 방식과 분석 방법론을 이해하세요.</p>
+        </div>
+        <div class="card">
+            <img src="{{url_for('static',filename='images/cloud_security.png')}}" alt="클라우드 보안">
+            <h3>클라우드 보안</h3>
+            <p>클라우드 환경에서의 보안 실천 방법을 탐구하세요.</p>
+        </div>
+    </div>
+</section>
+
+<section class="scenario">
+    <h2>시나리오</h2>
+    <div class="timeline">
+        <div class="timeline-item">
+            <div class="timeline-content">
+                <h3>1. 위협 식별</h3>
+                <p>시나리오에 주어진 정보를 통해 잠재적 위협을 식별합니다.</p>
+            </div>
+        </div>
+        <div class="timeline-item">
+            <div class="timeline-content">
+                <h3>2. 위협 분석</h3>
+                <p>식별된 위협을 분석하여 그 심각성과 영향을 평가합니다.</p>
+            </div>
+        </div>
+        <div class="timeline-item">
+            <div class="timeline-content">
+                <h3>3. 대응 전략 수립</h3>
+                <p>위협을 줄이기 위한 적절한 대응 전략을 수립합니다.</p>
+            </div>
+        </div>
+        <div class="timeline-item">
+            <div class="timeline-content">
+                <h3>4. 대응 전략 구현</h3>
+                <p>수립한 대응 전략을 실제로 구현하고 실행합니다.</p>
+            </div>
+        </div>
+        <div class="timeline-item">
+            <div class="timeline-content">
+                <h3>5. 결과 평가</h3>
+                <p>구현된 전략의 효과를 평가하고 필요시 추가 조치를 취합니다.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="qna nobg">
+    <h2>커뮤니티 기능 안내</h2>
+    <div class="qa-list">
+        <div class="qa-item">
+            <h3>Q1: 커뮤니티 기능은 무엇인가요?</h3>
+            <p>A1: 커뮤니티 기능은 사용자들이 서로 질문하고 답변을 공유하며 보안 지식을 확장할 수 있는 공간입니다. 각종 시나리오에 대한 토론, 문제 해결 방법, 최신 보안 뉴스 등을 나눌 수 있습니다.</p>
+        </div>
+        <div class="qa-item">
+            <h3>Q2: 어떻게 커뮤니티에 참여할 수 있나요?</h3>
+            <p>A2: 회원가입 후 로그인하면 커뮤니티 게시판에 접근할 수 있습니다. 게시판에 질문을 올리거나 다른 사용자의 질문에 답변을 달 수 있습니다.</p>
+        </div>
+        <div class="qa-item">
+            <h3>Q3: 커뮤니티에서 어떤 활동을 할 수 있나요?</h3>
+            <p>A3: 커뮤니티에서는 질문과 답변 외에도, 보안 관련 자료를 공유하거나 시나리오 진행 중 발생하는 문제에 대한 토론을 할 수 있습니다. 또한, 다양한 주제의 게시판을 통해 네트워킹과 정보 교환이 가능합니다.</p>
+        </div>
+        <div class="qa-item">
+            <h3>Q4: 커뮤니티에서 주의해야 할 사항이 있나요?</h3>
+            <p>A4: 커뮤니티에서는 모든 사용자가 존중받을 권리가 있습니다. 공격적이거나 비방적인 언어 사용을 삼가고, 모든 사용자에게 도움이 될 수 있는 건설적인 피드백을 제공해 주세요. 또한, 게시판의 규칙을 준수해 주세요.</p>
+        </div>
+    </div>
+</section>
+
+<script src="{{url_for('static',filename='js/canvas.js')}}"></script>
+{% endblock %}

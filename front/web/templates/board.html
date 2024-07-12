@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{{ super() }} - {{title}}
+{% endblock %}
+
+
+
+{% block content %}
+<div class="container">
+    <div class="practice">
+        <h2> Practice </h2>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <div class="vul-data" onclick="location.href='/board/web';">
+
+                <div class="itemcontent">
+
+                    <div>
+                        <h3>Web</h3><br>
+                        <p>웹 취약점과 관련된 문제를 풀 수 있습니다.</p>
+                    </div>
+
+
+                </div>
+                <div class="itemimage">
+                    <img class="img-fluid" src="{{url_for('static', filename='images/web.jpg')}}" alt="placeholder">
+                </div>
+
+            </div>
+        </div>
+        <div class="col">
+            <div class="vul-data" onclick="location.href='/board/system';">
+                <div class="itemcontent">
+                    <div>
+                        <h3>System</h3><br>
+                        <p>시스템 취약점과 관련된 문제를 풀 수 있습니다.</p>
+                    </div>
+
+                </div>
+                <div class="itemimage">
+                    <img class="img-fluid" src="{{url_for('static', filename='images/system.jpg')}}" alt="placeholder">
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="vul-data" onclick="location.href='/board/malware';">
+                <div class="itemcontent">
+                    <div>
+                        <h3>Malware</h3><br>
+                        <p>악성코드와 관련된 문제를 풀 수 있습니다.</p>
+                    </div>
+
+                </div>
+                <div class="itemimage">
+                    <img class="img-fluid" src="{{url_for('static', filename='images/malware.png')}}" alt="placeholder">
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="vul-data" onclick="location.href='/board/misc';">
+                <div class="itemcontent">
+                    <div>
+                        <h3>misc</h3><br>
+                        <p>misc와 관련된 문제를 풀 수 있습니다.</p>
+                    </div>
+
+                </div>
+                <div class="itemimage">
+                    <img class="img-fluid" src="{{url_for('static', filename='images/cloud.jpg')}}" alt="placeholder">
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endblock %}

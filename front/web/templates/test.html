@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{{ title }}
+{% endblock %}
+
+{% block content %}
+<div class="question-form">
+    <h1>질문 글 작성</h1>
+    <form id="qnaForm" action="{{ url }}" method="post">
+        <div class="form-group">
+            <label for="title">제목</label>
+            <input type="text" id="title" name="title" maxlength="150" autocomplete="off" value="{{ tmp.title }}">
+        </div>
+        <div class="form-group">
+            <label for="numbers">문제 제목</label>
+            <input type="search" list="list" name="numbers" id="numbers" value="{{ tmp.problem }}" autocomplete="off" maxlength="250">
+            <datalist id="list">
+                {% for item in problem %}
+                <option value="{{ item.title }}"></option>
+                {% endfor %}
+            </datalist>
+        </div>
+        <div class="form-group">
+            <label for="content">내용</label>
+            <textarea id="content" name="content" autocomplete="off" maxlength="500">{{ tmp.content }}</textarea>
+        </div>
+        {% if number != "" %}
+        <input type="hidden" name="number" value="{{ number }}">
+        {% endif %}
+        <button type="submit" id="sub">저장</button>
+    </form>
+</div>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/qnaform.css') }}">
+<script src="{{ url_for('static', filename='js/qna.js') }}"></script>
+<!-- CKEditor 스크립트 포함 -->
+<script src="https://cdn.ckeditor.com/4.16.0/standard/ckeditor.js"></script>
+<script>
+    CKEDITOR.replace('content');
+</script>
+{% endblock %}

@@ -1,0 +1,72 @@
+/* Header */
+.header {
+    display: flex;
+    align-items: center;
+    height: 3.5rem; /* Adjust height as needed */
+    padding: 0.75rem; /* Adjust padding as needed */
+    border-bottom: 1px solid #e5e7eb; /* Adjust border properties as needed */
+  }
+  
+  .header a {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem; /* Adjust gap between icon and text as needed */
+    font-size: 0.875rem; /* Adjust font size as needed */
+    font-weight: 600; /* Adjust font weight as needed */
+    color: #FFFFFF; /* Adjust text color as needed */
+    text-decoration: none;
+    justify-content: center;
+  }
+  
+  .header a svg {
+    width: 1.5rem; /* Adjust icon width as needed */
+    height: 1.5rem; /* Adjust icon height as needed */
+    fill: none; /* Ensure SVG icons use currentColor for fill */
+    stroke: currentColor; /* Ensure SVG icons use currentColor for stroke */
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    border-radius: 0.375rem; /* Adjust border radius as needed */
+    background-color: #4b5563; /* Adjust background color as needed */
+  }
+  
+  .header ul {
+    display: flex;
+    align-items: center;
+    gap: 1rem; /* Adjust gap between list items as needed */
+    list-style:none;
+    justify-content: center;
+  }
+  
+  .header ul li a {
+    color: #A4b1cd; /* Adjust link color as needed */
+    transition: color 0.3s; /* Smooth transition for link color */
+  }
+  
+  .header ul li a:hover {
+    color: #a4b1cd; /* Adjust link hover color as needed */
+  }
+  
+  .header nav {
+    margin-left: auto; /* Push navigation to the right */
+  }
+  
+  .header nav a {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem; /* Adjust gap between icon and text as needed */
+    font-weight: 500; /* Adjust font weight as needed */
+    color: #b1bbcf; /* Adjust text color as needed */
+    transition: color 0.3s; /* Smooth transition for link color */
+  }
+  
+  .header nav a:hover {
+    color: #FFFFFF; /* Adjust hover color as needed */
+  }
+
+  .header-item{
+    width:20%;
+  }
+  .header-nav{
+    width: 60%;
+  }

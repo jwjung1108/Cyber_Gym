@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{{ super() }} - 문제 설명
+{% endblock %}
+
+{% block content %}
+
+<style>
+    .loading {
+        background-color: gray !important;
+        cursor: not-allowed !important;
+    }
+</style>
+<link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor-viewer.min.css" />
+<div class="problem-container">
+    <div class="problem-header">
+        <div class="problem-type">
+            <h1>{{pro.category}}</h1>
+            <h2>{{pro.score}}P</h2>
+        </div>
+        <div class="problem-title">
+            <h1>{{pro.title}}</h1>
+        </div>
+    </div>
+
+    <div class="problem-contents">
+        <h1>설명</h1>
+        <div id="viewer-content"></div>
+        <p id="hint">{{pro.hint}}</p>
+        <button id="show-hint-btn" type="button">힌트 보기</button>
+    </div>
+    {% if user is not none and pro.category != 'misc' %}
+    <button id="server-action-btn">서버 연결 요청 하기</button>
+    <script src="{{url_for('static',filename='js/s.js')}}"></script>
+    <div id="result"></div>
+    {% endif %}
+    {% if pro.filepath != "파일없음" %}
+    <div class="problem-file">
+        <h1> 파일 다운로드</h1>
+        <form id="downloadForm" action="{{ url_for('problem.download_problem', problem_number = number) }}"
+            method="POST">
+            <button type="submit" formmethod="POST">Download Problem</button>
+        </form>
+    </div>
+    {% endif %}
+
+    {% if not check and 'username' in session %}<!-- Input flag form -->
+    <form action="/flag" method="post" class="flag-form">
+        <div class="form-group">
+            <label for="flag">플래그</label>
+            <input type="text" id="flag" name="flag" placeholder="flag 값을 입력해주세요" required>
+
+        </div>
+        <input type="hidden" name="title" value="{{pro.title}}">
+        <button type="submit">제출</button>
+    </form>
+    {% endif %}
+</div>
+<script src="{{url_for('static',filename='js/button.js')}}"></script>
+
+<script src="https://uicdn.toast.com/editor/latest/toastui-editor-viewer.min.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const viewer = new toastui.Editor({
+            el: document.querySelector('#viewer-content'),
+            viewer: true,
+            initialValue: `{{ pro.contents | replace('\n', '\\n') | safe }}`
+        });
+    });
+</script>
+{% endblock %}

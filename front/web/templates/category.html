@@ -1,0 +1,43 @@
+<!-- This is malware Practice Page -->
+<!-- Input content -->
+{% extends 'base.html' %}
+
+{% block title %}
+{{ super() }} - {{title}}
+{% endblock %}
+
+
+
+{% block content %}
+<div class="category">
+    <h2>{{title}}</h2>
+
+    <div>
+        {% if pro %}
+        <ol class="listup SMN_effect-16">
+            {% for item in pro %}
+            <li class="menu">
+                <div class="menu-box">
+                    {% if item.p_idx in solved_problem_ids %}
+                    <span class="solved-message">해결</span>
+                    {% endif %}
+                    <div>
+                        <a href="/{{ title }}/problem{{ loop.index }}">{{item.title}}</a>
+                    </div>
+                    <div>
+                        <p> 점수 : {{item.score}}</p>
+                    </div>
+
+                </div>
+            </li>
+            {% endfor %}
+        </ol>
+        {% else %}
+        <div class="no-problem-message-container">
+            <p class="no-problem-message">해당 카테고리에 문제가 없습니다.</p>
+
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

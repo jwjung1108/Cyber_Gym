@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{{ super() }} - {{title}}_{{id}}
+{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/manager.css') }}">
+<table class="">
+    <thead>
+        <tr>
+            <th>문제 번호</th>
+            <th>카테고리</th>
+            <th>제목</th>
+            <th>내용</th>
+            <th>힌트</th>
+            <th>접속정보</th>
+            <th>점수</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for p in problems %}
+        <tr data-href="{{ url_for('manager.edit_problem', p_idx=p.p_idx) }}" style="cursor: pointer;">
+            <td>{{ p.p_idx }}</td>
+            <td>{{ p.category }}</td>
+            <td>{{ p.title }}</td>
+            <td>{{ p.contents }}</td>
+            <td>{{ p.hint }}</td>
+            <td>{{ p.connect }}</td>
+            <td>{{ p.score }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var rows = document.querySelectorAll('tr[data-href]');
+        rows.forEach(function (row) {
+            row.addEventListener('click', function () {
+                window.location.href = row.getAttribute('data-href');
+            });
+        });
+    });
+</script>
+
+{% endblock %}

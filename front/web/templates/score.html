@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title %}
+ScoreBoard
+{% endblock %}
+
+{% block content %}
+<div class="table-wrapper">
+<table class="score">
+    <thead>
+        <tr>
+            <th>rank</th>
+            <th> name </th>
+            <th>score</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in list %}
+        <tr>
+            <td>{{ loop.index }}</td>
+            <td>{{ item.nickname }}</td>
+            <td>{{ item.t_score }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+</div>
+{% endblock %}
